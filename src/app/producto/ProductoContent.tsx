@@ -67,32 +67,50 @@ export function ProductoContent() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-b from-primary-50/50 to-white pt-28 pb-16 sm:pt-36 sm:pb-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 pt-28 pb-20 sm:pt-40 sm:pb-28">
+        <div className="pointer-events-none absolute inset-0 bg-blueprint-grid-dark" />
+        <div className="pointer-events-none absolute -top-40 -right-40 h-[500px] w-[500px] rounded-full bg-primary-600/10 blur-[120px]" />
+        <div className="pointer-events-none absolute bottom-0 -left-40 h-[400px] w-[400px] rounded-full bg-blueprint-500/8 blur-[100px]" />
+        <div className="pointer-events-none absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-blueprint-400/20 to-transparent" />
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <span className="mb-4 inline-block rounded-full bg-primary-100 px-4 py-1.5 text-sm font-semibold text-primary-700">
+              <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wider text-blueprint-200 uppercase backdrop-blur-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-blueprint-400" />
                 Producto
               </span>
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+              <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
                 Una plataforma que conecta{" "}
-                <span className="text-primary-600">toda tu operación</span>
+                <span className="bg-gradient-to-r from-blueprint-400 to-primary-400 bg-clip-text text-transparent">
+                  toda tu operación
+                </span>
               </h1>
-              <p className="mt-6 text-lg leading-relaxed text-gray-600">
+              <p className="mt-6 text-lg leading-relaxed text-gray-400">
                 Bloqer integra presupuesto, compras, inventario, avances de obra y
                 reportes en un solo sistema. Sin integraciones complicadas, sin
                 planillas paralelas — todo fluye conectado.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
-                <Button variant="primary" size="lg" href={REGISTER_URL}>
+                <Button
+                  variant="primary"
+                  size="lg"
+                  href={REGISTER_URL}
+                  className="bg-primary-500 shadow-lg shadow-primary-500/25 hover:bg-primary-400 hover:shadow-xl hover:shadow-primary-500/30"
+                >
                   Empezar gratis
                   <ArrowRight className="h-4 w-4" />
                 </Button>
-                <Button variant="outline" size="lg" href="/modulos">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  href="/modulos"
+                  className="border-white/20 text-white hover:bg-white/5 hover:border-white/30"
+                >
                   Ver módulos
                 </Button>
               </div>
@@ -102,15 +120,21 @@ export function ProductoContent() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
+              className="relative"
             >
-              <ScreenshotPlaceholder label="Flujo integrado: Presupuesto → Compras → Inventario" />
+              <div className="absolute -inset-4 rounded-3xl bg-primary-500/10 blur-2xl" />
+              <div className="relative">
+                <ScreenshotPlaceholder label="Flujo integrado: Presupuesto → Compras → Inventario" />
+              </div>
             </motion.div>
           </div>
         </div>
+
+        <div className="pointer-events-none absolute bottom-0 right-0 left-0 h-24 bg-gradient-to-t from-white to-transparent" />
       </section>
 
       {/* Workflow */}
-      <section className="bg-white py-20">
+      <section className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="Flujo de trabajo"
@@ -120,7 +144,9 @@ export function ProductoContent() {
 
           <div className="relative mx-auto max-w-4xl">
             {/* Connection line */}
-            <div className="absolute top-1/2 right-0 left-0 hidden h-0.5 -translate-y-1/2 bg-gradient-to-r from-primary-200 via-primary-400 to-primary-200 md:block" />
+            <div className="absolute top-1/2 right-0 left-0 hidden h-px -translate-y-1/2 md:block">
+              <div className="h-full w-full bg-gradient-to-r from-primary-200 via-primary-400 to-primary-200" />
+            </div>
 
             <div className="grid gap-4 md:grid-cols-5">
               {WORKFLOW_STEPS.map((step, i) => (
@@ -132,10 +158,10 @@ export function ProductoContent() {
                   transition={{ delay: i * 0.1 }}
                   className="relative flex flex-col items-center text-center"
                 >
-                  <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border-2 border-primary-500 bg-white text-sm font-bold text-primary-600">
+                  <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border-2 border-primary-500 bg-white text-sm font-bold text-primary-600 shadow-md shadow-primary-100">
                     {i + 1}
                   </div>
-                  <h3 className="mt-3 text-sm font-semibold text-gray-900">
+                  <h3 className="mt-3 text-sm font-bold text-gray-900">
                     {step.label}
                   </h3>
                   <p className="mt-1 text-xs text-gray-500">{step.description}</p>
@@ -147,12 +173,16 @@ export function ProductoContent() {
       </section>
 
       {/* Features grid */}
-      <section className="bg-gray-50 py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 py-24 sm:py-32">
+        <div className="pointer-events-none absolute inset-0 bg-blueprint-grid-dark" />
+        <div className="pointer-events-none absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-blueprint-400/15 to-transparent" />
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="Características"
             title="Diseñado para equipos de construcción reales"
             description="No es un ERP genérico adaptado — Bloqer está construido desde cero para el sector."
+            dark
           />
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -163,13 +193,13 @@ export function ProductoContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
-                className="rounded-2xl border border-gray-200 bg-white p-8"
+                className="group rounded-2xl border border-white/5 bg-white/5 p-8 backdrop-blur-sm transition-all duration-300 hover:border-blueprint-400/20 hover:bg-white/8"
               >
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-500/10 text-primary-400 ring-1 ring-primary-400/20 transition-all group-hover:bg-primary-500/20 group-hover:text-primary-300">
                   <f.icon className="h-6 w-6" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900">{f.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                <h3 className="text-lg font-bold text-white">{f.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-gray-400">
                   {f.description}
                 </p>
               </motion.div>
@@ -179,7 +209,7 @@ export function ProductoContent() {
       </section>
 
       {/* Screenshot section */}
-      <section className="bg-white py-20">
+      <section className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div>
@@ -196,14 +226,19 @@ export function ProductoContent() {
                   "Formularios simplificados para registrar datos en campo",
                   "Accesible desde cualquier dispositivo",
                 ].map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm text-gray-600">
+                  <li key={item} className="flex items-start gap-3 text-sm text-gray-500">
                     <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-500" />
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
-            <ScreenshotPlaceholder label="Interfaz del dashboard de proyecto" />
+            <div className="relative">
+              <div className="absolute -inset-4 rounded-3xl bg-primary-500/5 blur-2xl" />
+              <div className="relative">
+                <ScreenshotPlaceholder label="Interfaz del dashboard de proyecto" />
+              </div>
+            </div>
           </div>
         </div>
       </section>

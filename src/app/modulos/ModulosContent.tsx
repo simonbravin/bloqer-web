@@ -204,25 +204,35 @@ export function ModulosContent() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-b from-primary-50/50 to-white pt-28 pb-12 sm:pt-36 sm:pb-16">
-        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 pt-28 pb-16 sm:pt-40 sm:pb-20">
+        <div className="pointer-events-none absolute inset-0 bg-blueprint-grid-dark" />
+        <div className="pointer-events-none absolute -top-40 -right-40 h-[500px] w-[500px] rounded-full bg-primary-600/10 blur-[120px]" />
+        <div className="pointer-events-none absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-blueprint-400/20 to-transparent" />
+
+        <div className="relative mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <span className="mb-4 inline-block rounded-full bg-primary-100 px-4 py-1.5 text-sm font-semibold text-primary-700">
+            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wider text-blueprint-200 uppercase backdrop-blur-sm">
+              <span className="h-1.5 w-1.5 rounded-full bg-blueprint-400" />
               Módulos
             </span>
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
               Cada módulo resuelve un{" "}
-              <span className="text-primary-600">dolor real</span> de la obra
+              <span className="bg-gradient-to-r from-blueprint-400 to-primary-400 bg-clip-text text-transparent">
+                dolor real
+              </span>{" "}
+              de la obra
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-400">
               Activá solo los que necesitás. Cada módulo funciona integrado con
               el resto para que tu información siempre esté conectada.
             </p>
           </motion.div>
         </div>
+
+        <div className="pointer-events-none absolute bottom-0 right-0 left-0 h-24 bg-gradient-to-t from-white to-transparent" />
       </section>
 
       {/* Modules with sticky sidebar */}
@@ -231,8 +241,8 @@ export function ModulosContent() {
           <div className="lg:grid lg:grid-cols-[280px_1fr] lg:gap-12">
             {/* Sticky sidebar */}
             <nav className="hidden lg:block">
-              <div className="sticky top-20 space-y-1">
-                <p className="mb-4 text-xs font-semibold tracking-wide text-gray-400 uppercase">
+              <div className="sticky top-20 space-y-1 rounded-2xl border border-gray-100 bg-gray-50/50 p-4 shadow-card">
+                <p className="mb-4 px-3 text-xs font-semibold tracking-[0.15em] text-gray-400 uppercase">
                   Módulos
                 </p>
                 {MODULES.map((m) => (
@@ -246,8 +256,8 @@ export function ModulosContent() {
                     className={cn(
                       "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all",
                       activeModule === m.id
-                        ? "bg-primary-50 text-primary-700"
-                        : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                        ? "bg-primary-50 text-primary-700 shadow-sm"
+                        : "text-gray-500 hover:bg-gray-100 hover:text-gray-900"
                     )}
                   >
                     <m.icon className="h-4 w-4 shrink-0" />
@@ -263,7 +273,7 @@ export function ModulosContent() {
             </nav>
 
             {/* Module sections */}
-            <div className="space-y-20">
+            <div className="space-y-24">
               {MODULES.map((mod, i) => (
                 <motion.div
                   key={mod.id}
@@ -280,10 +290,10 @@ export function ModulosContent() {
                   )}>
                     <div>
                       <div className="mb-4 flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-100 text-primary-600">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary-50 to-primary-100/50 text-primary-600 ring-1 ring-primary-100">
                           <mod.icon className="h-5 w-5" />
                         </div>
-                        <h2 className="text-2xl font-bold text-gray-900">
+                        <h2 className="text-2xl font-extrabold text-gray-900">
                           {mod.title}
                         </h2>
                         {mod.coming_soon && (
@@ -292,17 +302,17 @@ export function ModulosContent() {
                           </span>
                         )}
                       </div>
-                      <p className="text-lg font-medium text-gray-800">
+                      <p className="text-lg font-semibold text-gray-800">
                         {mod.headline}
                       </p>
-                      <p className="mt-3 text-sm leading-relaxed text-gray-600">
+                      <p className="mt-3 text-sm leading-relaxed text-gray-500">
                         {mod.description}
                       </p>
                       <ul className="mt-5 space-y-2.5">
                         {mod.outcomes.map((o) => (
                           <li
                             key={o}
-                            className="flex items-start gap-3 text-sm text-gray-600"
+                            className="flex items-start gap-3 text-sm text-gray-500"
                           >
                             <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-500" />
                             {o}
@@ -310,7 +320,12 @@ export function ModulosContent() {
                         ))}
                       </ul>
                     </div>
-                    <ScreenshotPlaceholder label={mod.screenshot_label} />
+                    <div className="relative">
+                      <div className="absolute -inset-3 rounded-3xl bg-primary-500/5 blur-xl" />
+                      <div className="relative">
+                        <ScreenshotPlaceholder label={mod.screenshot_label} />
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
               ))}
@@ -320,17 +335,25 @@ export function ModulosContent() {
       </section>
 
       {/* CTA */}
-      <section className="bg-gray-50 py-16">
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
-          <h2 className="text-3xl font-bold text-gray-900">
+      <section className="relative bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 py-20 sm:py-24">
+        <div className="pointer-events-none absolute inset-0 bg-blueprint-grid-dark" />
+        <div className="pointer-events-none absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-blueprint-400/15 to-transparent" />
+
+        <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6">
+          <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
             ¿Listo para probarlo?
           </h2>
-          <p className="mt-4 text-gray-600">
+          <p className="mt-4 text-gray-400">
             Creá tu cuenta y activá los módulos que tu equipo necesita. Empezá
             con un proyecto de prueba, sin costo.
           </p>
           <div className="mt-8">
-            <Button variant="primary" size="lg" href={REGISTER_URL}>
+            <Button
+              variant="primary"
+              size="lg"
+              href={REGISTER_URL}
+              className="bg-primary-500 shadow-lg shadow-primary-500/25 hover:bg-primary-400"
+            >
               Empezar gratis
               <ArrowRight className="h-4 w-4" />
             </Button>

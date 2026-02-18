@@ -75,29 +75,37 @@ export function SeguridadContent() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-b from-primary-50/50 to-white pt-28 pb-16 sm:pt-36 sm:pb-20">
-        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 pt-28 pb-20 sm:pt-40 sm:pb-24">
+        <div className="pointer-events-none absolute inset-0 bg-blueprint-grid-dark" />
+        <div className="pointer-events-none absolute -top-40 -right-40 h-[500px] w-[500px] rounded-full bg-primary-600/10 blur-[120px]" />
+        <div className="pointer-events-none absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-blueprint-400/20 to-transparent" />
+
+        <div className="relative mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-100">
-              <Shield className="h-8 w-8 text-primary-600" />
+            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/5 ring-1 ring-white/10">
+              <Shield className="h-8 w-8 text-blueprint-400" />
             </div>
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
               Tu información,{" "}
-              <span className="text-primary-600">protegida</span>
+              <span className="bg-gradient-to-r from-blueprint-400 to-primary-400 bg-clip-text text-transparent">
+                protegida
+              </span>
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-400">
               La seguridad no es un extra — es parte del diseño de Bloqer. Así
               protegemos la información de tu organización y tus proyectos.
             </p>
           </motion.div>
         </div>
+
+        <div className="pointer-events-none absolute bottom-0 right-0 left-0 h-24 bg-gradient-to-t from-white to-transparent" />
       </section>
 
       {/* Security features */}
-      <section className="bg-white py-20">
+      <section className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             title="Medidas de seguridad"
@@ -112,13 +120,13 @@ export function SeguridadContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
-                className="rounded-2xl border border-gray-200 bg-white p-8 transition-all hover:border-primary-100 hover:shadow-md"
+                className="group rounded-2xl border border-gray-100 bg-white p-8 shadow-card transition-all duration-300 hover:border-primary-100 hover:shadow-card-hover hover:-translate-y-1"
               >
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary-50 to-primary-100/50 text-primary-600 ring-1 ring-primary-100 transition-all group-hover:from-primary-100 group-hover:to-primary-200/50 group-hover:shadow-md group-hover:shadow-primary-100">
                   <f.icon className="h-6 w-6" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900">{f.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                <h3 className="text-lg font-bold text-gray-900">{f.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-gray-500">
                   {f.description}
                 </p>
               </motion.div>
@@ -128,10 +136,14 @@ export function SeguridadContent() {
       </section>
 
       {/* Principles */}
-      <section className="bg-gray-50 py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 py-24 sm:py-32">
+        <div className="pointer-events-none absolute inset-0 bg-blueprint-grid-dark" />
+        <div className="pointer-events-none absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-blueprint-400/15 to-transparent" />
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             title="Nuestros principios de seguridad"
+            dark
           />
 
           <div className="mx-auto max-w-3xl space-y-6">
@@ -142,12 +154,12 @@ export function SeguridadContent() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="flex gap-4 rounded-xl border border-gray-200 bg-white p-6"
+                className="flex gap-4 rounded-xl border border-white/5 bg-white/5 p-6 backdrop-blur-sm transition-all hover:border-blueprint-400/20 hover:bg-white/8"
               >
-                <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-primary-500" />
+                <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-blueprint-400" />
                 <div>
-                  <h3 className="font-semibold text-gray-900">{p.title}</h3>
-                  <p className="mt-1 text-sm text-gray-600">{p.description}</p>
+                  <h3 className="font-bold text-white">{p.title}</h3>
+                  <p className="mt-1 text-sm text-gray-400">{p.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -156,12 +168,12 @@ export function SeguridadContent() {
       </section>
 
       {/* Disclaimer & CTA */}
-      <section className="bg-white py-20">
+      <section className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
-          <h2 className="text-2xl font-bold text-gray-900">
+          <h2 className="text-2xl font-extrabold text-gray-900 sm:text-3xl">
             ¿Tenés preguntas sobre seguridad?
           </h2>
-          <p className="mt-4 text-gray-600">
+          <p className="mt-4 text-gray-500">
             Estamos abiertos a responder cualquier consulta técnica o de
             cumplimiento. Contactanos y te respondemos con detalle.
           </p>
