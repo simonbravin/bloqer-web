@@ -25,6 +25,18 @@
   --color-gray-900: #111827;
   --color-gray-950: #030712;
 
+  /* Slate / industrial tones */
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+  --color-slate-950: #020617;
+
+  /* Blueprint cyan accent */
+  --color-blueprint-50: #ecfeff;
+  --color-blueprint-100: #cffafe;
+  --color-blueprint-200: #a5f3fc;
+  --color-blueprint-400: #22d3ee;
+  --color-blueprint-500: #06b6d4;
+
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
 }
 
@@ -61,4 +73,73 @@ html {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-gray-400);
+}
+
+/* ─── Blueprint Grid Pattern ─── */
+.bg-blueprint-grid {
+  background-image:
+    linear-gradient(rgba(34, 211, 238, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.bg-blueprint-grid-dark {
+  background-image:
+    linear-gradient(rgba(34, 211, 238, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ─── CSS-only scroll reveal ─── */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes subtle-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* ─── Premium card shadows ─── */
+.shadow-card {
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.shadow-card-hover {
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.06),
+    0 12px 32px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-card-elevated {
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.06),
+    0 20px 48px rgba(0, 0, 0, 0.05);
+}
+
+/* ─── Glow effects ─── */
+.glow-primary {
+  box-shadow:
+    0 0 40px rgba(37, 99, 235, 0.15),
+    0 0 80px rgba(37, 99, 235, 0.08);
+}
+
+.glow-primary-lg {
+  box-shadow:
+    0 0 60px rgba(37, 99, 235, 0.2),
+    0 0 120px rgba(37, 99, 235, 0.1);
 }

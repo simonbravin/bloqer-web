@@ -30,7 +30,7 @@ const STEPS = [
 
 export function HowItWorks() {
   return (
-    <section className="bg-white py-20 sm:py-28">
+    <section className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="Cómo funciona"
@@ -49,17 +49,24 @@ export function HowItWorks() {
             >
               {/* Connector line */}
               {i < STEPS.length - 1 && (
-                <div className="absolute top-8 right-0 hidden h-0.5 w-full translate-x-1/2 bg-gradient-to-r from-primary-200 to-primary-100 md:block" />
+                <div className="absolute top-10 right-0 hidden h-px w-full translate-x-1/2 md:block">
+                  <div className="h-full w-full bg-gradient-to-r from-primary-200 via-primary-200 to-primary-100" />
+                  <div className="absolute top-1/2 right-0 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-primary-200" />
+                </div>
               )}
 
-              <div className="relative mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-600 text-white shadow-lg shadow-primary-600/25">
-                <step.icon className="h-7 w-7" />
+              <div className="relative mx-auto mb-2 flex h-20 w-20 items-center justify-center">
+                {/* Background ring */}
+                <div className="absolute inset-0 rounded-2xl bg-primary-50 ring-1 ring-primary-100" />
+                <div className="relative flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-primary-600 to-primary-700 text-white shadow-lg shadow-primary-600/25">
+                  <step.icon className="h-7 w-7" />
+                </div>
               </div>
-              <span className="mb-2 block text-sm font-bold text-primary-600">
-                {step.number}
+              <span className="mt-4 mb-2 block text-xs font-bold tracking-wider text-primary-500 uppercase">
+                Paso {step.number}
               </span>
               <h3 className="text-xl font-bold text-gray-900">{step.title}</h3>
-              <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-gray-600">
+              <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-gray-500">
                 {step.description}
               </p>
             </motion.div>

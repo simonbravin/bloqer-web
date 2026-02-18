@@ -11,9 +11,9 @@ const SEGMENTS = [
 
 export function SocialProof() {
   return (
-    <section className="border-y border-gray-100 bg-white py-12">
+    <section className="relative border-b border-gray-100 bg-white py-14">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <p className="mb-8 text-center text-sm font-medium tracking-wide text-gray-400 uppercase">
+        <p className="mb-8 text-center text-xs font-semibold tracking-[0.2em] text-gray-400 uppercase">
           Diseñado para equipos de construcción en Latinoamérica
         </p>
         <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-16">
@@ -24,10 +24,12 @@ export function SocialProof() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="flex items-center gap-3 text-gray-400"
+              className="group flex items-center gap-3 text-gray-400 transition-colors hover:text-gray-600"
             >
-              <seg.icon className="h-8 w-8" strokeWidth={1.5} />
-              <span className="text-base font-medium">{seg.label}</span>
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50 ring-1 ring-gray-100 transition-all group-hover:bg-primary-50 group-hover:ring-primary-100">
+                <seg.icon className="h-5 w-5 transition-colors group-hover:text-primary-600" strokeWidth={1.5} />
+              </div>
+              <span className="text-sm font-semibold tracking-wide">{seg.label}</span>
             </motion.div>
           ))}
         </div>

@@ -41,17 +41,22 @@ function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="border-b border-gray-200">
+    <div className="border-b border-gray-200/80">
       <button
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center justify-between py-5 text-left"
+        className="flex w-full items-center justify-between py-5 text-left transition-colors hover:text-primary-600"
         aria-expanded={open}
       >
-        <span className="pr-4 text-base font-medium text-gray-900">{q}</span>
+        <span className={cn(
+          "pr-4 text-base font-medium transition-colors",
+          open ? "text-primary-600" : "text-gray-900"
+        )}>
+          {q}
+        </span>
         <ChevronDown
           className={cn(
             "h-5 w-5 shrink-0 text-gray-400 transition-transform duration-200",
-            open && "rotate-180"
+            open && "rotate-180 text-primary-500"
           )}
         />
       </button>
@@ -64,7 +69,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <p className="pb-5 text-sm leading-relaxed text-gray-600">{a}</p>
+            <p className="pb-5 text-sm leading-relaxed text-gray-500">{a}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -74,7 +79,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 export function FAQ() {
   return (
-    <section className="bg-white py-20 sm:py-28">
+    <section className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="FAQ"
@@ -82,10 +87,12 @@ export function FAQ() {
           description="Respuestas rápidas sobre Bloqer."
         />
 
-        <div className="border-t border-gray-200">
-          {FAQS.map((faq) => (
-            <FAQItem key={faq.q} q={faq.q} a={faq.a} />
-          ))}
+        <div className="rounded-2xl border border-gray-100 bg-white p-2 shadow-card sm:p-6">
+          <div className="border-t border-gray-200/80">
+            {FAQS.map((faq) => (
+              <FAQItem key={faq.q} q={faq.q} a={faq.a} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

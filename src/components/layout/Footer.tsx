@@ -11,7 +11,7 @@ const SOCIAL_LINKS = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-gray-200 bg-gray-50">
+    <footer className="border-t border-gray-200/60 bg-gradient-to-b from-gray-50 to-gray-100/50">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
@@ -25,7 +25,7 @@ export function Footer() {
                 className="h-7 w-auto"
               />
             </Link>
-            <p className="mt-4 text-sm leading-relaxed text-gray-600">
+            <p className="mt-4 text-sm leading-relaxed text-gray-500">
               El ERP de construcción para Latinoamérica. Controlá tus proyectos con
               trazabilidad de principio a fin.
             </p>
@@ -33,13 +33,13 @@ export function Footer() {
 
           {/* Navigation */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-900">Navegación</h3>
+            <h3 className="text-xs font-semibold tracking-wider text-gray-900 uppercase">Navegación</h3>
             <ul className="mt-4 space-y-2.5">
               {NAV_ITEMS.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-gray-600 transition-colors hover:text-primary-600"
+                    className="text-sm text-gray-500 transition-colors hover:text-primary-600"
                   >
                     {item.label}
                   </Link>
@@ -50,12 +50,12 @@ export function Footer() {
 
           {/* Portal */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-900">Portal</h3>
+            <h3 className="text-xs font-semibold tracking-wider text-gray-900 uppercase">Portal</h3>
             <ul className="mt-4 space-y-2.5">
               <li>
                 <a
                   href={LOGIN_URL}
-                  className="text-sm text-gray-600 transition-colors hover:text-primary-600"
+                  className="text-sm text-gray-500 transition-colors hover:text-primary-600"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -65,7 +65,7 @@ export function Footer() {
               <li>
                 <a
                   href={REGISTER_URL}
-                  className="text-sm text-gray-600 transition-colors hover:text-primary-600"
+                  className="text-sm text-gray-500 transition-colors hover:text-primary-600"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -76,7 +76,7 @@ export function Footer() {
                 <li key={s.label}>
                   <a
                     href={s.href}
-                    className="text-sm text-gray-600 transition-colors hover:text-primary-600"
+                    className="text-sm text-gray-500 transition-colors hover:text-primary-600"
                   >
                     {s.label}
                   </a>
@@ -87,24 +87,24 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-900">Contacto</h3>
+            <h3 className="text-xs font-semibold tracking-wider text-gray-900 uppercase">Contacto</h3>
             <ul className="mt-4 space-y-3">
               <li>
                 <a
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-green-600"
+                  className="flex items-center gap-2 text-sm text-gray-500 transition-colors hover:text-green-600"
                 >
                   <MessageCircle className="h-4 w-4" />
                   {WHATSAPP_NUMBER}
                 </a>
               </li>
-              <li className="flex items-center gap-2 text-sm text-gray-600">
+              <li className="flex items-center gap-2 text-sm text-gray-500">
                 <Mail className="h-4 w-4" />
                 info@bloqer.app
               </li>
-              <li className="flex items-start gap-2 text-sm text-gray-600">
+              <li className="flex items-start gap-2 text-sm text-gray-500">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
                 Panamá, Panamá
               </li>
@@ -113,8 +113,8 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 border-t border-gray-200 pt-8 text-center">
-          <p className="text-sm text-gray-500">
+        <div className="mt-12 border-t border-gray-200/60 pt-8 text-center">
+          <p className="text-xs text-gray-400">
             &copy; {new Date().getFullYear()} Bloqer. Todos los derechos reservados.
           </p>
         </div>

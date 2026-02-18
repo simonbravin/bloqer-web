@@ -52,7 +52,7 @@ const VALUES = [
 
 export function ValueCards() {
   return (
-    <section className="bg-white py-20 sm:py-28">
+    <section className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="¿Por qué Bloqer?"
@@ -68,13 +68,13 @@ export function ValueCards() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
-              className="group rounded-2xl border border-gray-100 bg-white p-8 transition-all hover:border-primary-100 hover:shadow-lg hover:shadow-primary-50"
+              className="group relative rounded-2xl border border-gray-100 bg-white p-8 shadow-card transition-all duration-300 hover:border-primary-100 hover:shadow-card-hover hover:-translate-y-1"
             >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600 transition-colors group-hover:bg-primary-100">
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary-50 to-primary-100/50 text-primary-600 ring-1 ring-primary-100 transition-all group-hover:from-primary-100 group-hover:to-primary-200/50 group-hover:shadow-md group-hover:shadow-primary-100">
                 <v.icon className="h-6 w-6" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900">{v.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+              <h3 className="text-lg font-bold text-gray-900">{v.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-500">
                 {v.description}
               </p>
             </motion.div>

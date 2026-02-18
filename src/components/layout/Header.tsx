@@ -41,7 +41,10 @@ export function Header() {
             alt="Bloqer"
             width={130}
             height={36}
-            className="h-8 w-auto"
+            className={cn(
+              "h-8 w-auto transition-all duration-300",
+              !scrolled && "brightness-0 invert"
+            )}
             priority
           />
         </Link>
@@ -55,8 +58,10 @@ export function Header() {
               className={cn(
                 "rounded-md px-3 py-2 text-sm font-medium transition-colors",
                 pathname === item.href
-                  ? "text-primary-600"
-                  : "text-gray-600 hover:text-gray-900"
+                  ? scrolled ? "text-primary-600" : "text-white"
+                  : scrolled
+                    ? "text-gray-600 hover:text-gray-900"
+                    : "text-gray-300 hover:text-white"
               )}
             >
               {item.label}
@@ -66,7 +71,14 @@ export function Header() {
 
         {/* Desktop CTAs */}
         <div className="hidden items-center gap-3 lg:flex">
-          <Button variant="ghost" size="sm" href={LOGIN_URL}>
+          <Button
+            variant="ghost"
+            size="sm"
+            href={LOGIN_URL}
+            className={cn(
+              !scrolled && "text-gray-300 hover:text-white hover:bg-white/10"
+            )}
+          >
             Iniciar sesión
           </Button>
           <Button variant="primary" size="sm" href={REGISTER_URL}>
@@ -76,7 +88,12 @@ export function Header() {
 
         {/* Mobile hamburger */}
         <button
-          className="rounded-md p-2 text-gray-600 hover:bg-gray-100 lg:hidden"
+          className={cn(
+            "rounded-md p-2 lg:hidden transition-colors",
+            scrolled
+              ? "text-gray-600 hover:bg-gray-100"
+              : "text-gray-300 hover:bg-white/10"
+          )}
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
           aria-expanded={mobileOpen}
