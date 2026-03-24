@@ -158,7 +158,6 @@ const MODULES: Module[] = [
       "Comparativo de ingresos (certificaciones) vs. egresos (compras)",
       "Alertas de brechas de liquidez por periodo",
     ],
-    coming_soon: true,
     screenshot_label: "Dashboard de flujo de caja",
   },
   {
