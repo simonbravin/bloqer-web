@@ -1,276 +1,301 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, LayoutDashboard, FolderKanban, DollarSign, Users, Warehouse, BarChart3, Bell } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { REGISTER_URL } from "@/lib/constants";
 import { EASE, PulseRing } from "@/components/motion";
 
-// ── Helper: draw transition for SVG path animations ──────────────────────
-const draw = (delay: number, duration = 1.2) => ({
-  pathLength: { delay, duration, ease: EASE },
-  opacity: { delay, duration: 0.01 },
-});
-
-// ── Animated blueprint floor-plan SVG ─────────────────────────────────────
-function BlueprintFloorPlan() {
-  // Junction coordinates for interior wall endpoints
-  const junctions: [number, number][] = [
-    [220, 45], [330, 45], [220, 185], [330, 185], [420, 185], [220, 310],
+// ── Dashboard Mockup ───────────────────────────────────────────────────────
+function DashboardMockup() {
+  const navSections = [
+    {
+      label: "OPERACIONES",
+      items: [
+        { icon: LayoutDashboard, label: "Tablero", active: true },
+        { icon: FolderKanban, label: "Proyectos" },
+        { icon: DollarSign, label: "Finanzas" },
+      ],
+    },
+    {
+      label: "GESTIÓN",
+      items: [
+        { icon: Users, label: "Equipo" },
+        { icon: Warehouse, label: "Inventario" },
+      ],
+    },
+    {
+      label: "REPORTES",
+      items: [
+        { icon: BarChart3, label: "Reportes" },
+      ],
+    },
   ];
 
-  // Window indicators on top outer wall
-  const topWindows = [110, 210, 300, 390];
-
-  // Room labels
-  const rooms = [
-    { x: 140, y: 185, label: "PLANTA BAJA" },
-    { x: 275, y: 112, label: "OFICINAS" },
-    { x: 375, y: 112, label: "SALA" },
-    { x: 322, y: 255, label: "ÁREA COMÚN" },
+  const stats = [
+    { label: "Proyectos Activos", value: "3", valueColor: "text-white", sub: "+1 este mes" },
+    { label: "Presupuesto Total", value: "$1.2M", valueColor: "text-white", sub: "3 proyectos" },
+    { label: "Avance Promedio", value: "67%", valueColor: "text-green-400", sub: "+8% vs prev" },
+    { label: "Gastos del Mes", value: "$84K", valueColor: "text-white", sub: "En 3 proyectos" },
   ];
 
-  // Title block text
-  const titleLines = [
-    { y: 265, text: "BLOQER · PLANO TIPO", size: 6.5, op: 0.65 },
-    { y: 279, text: "ESC. 1:100  REV.03", size: 5.5, op: 0.4 },
-    { y: 292, text: "TORRE CENTRAL", size: 5.5, op: 0.4 },
-    { y: 305, text: "PANAMÁ, 2025", size: 5.5, op: 0.3 },
-  ];
+  // Cashflow chart polyline points (SVG viewBox 0 0 440 90)
+  const chartPoints = "0,72 55,65 110,52 165,36 220,42 275,26 330,30 385,20 440,22";
+  const areaPath = `M 0,72 55,65 110,52 165,36 220,42 275,26 330,30 385,20 440,22 L 440,90 L 0,90 Z`;
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-blueprint-400/10">
-      {/* Blueprint background */}
-      <div className="absolute inset-0 bg-slate-950 bg-blueprint-grid-dark opacity-90" />
-
-      <svg
-        viewBox="0 0 640 360"
-        className="relative w-full"
-        aria-hidden="true"
-        style={{ filter: "drop-shadow(0 0 28px rgba(34,211,238,0.1))" }}
-      >
-        {/* ── Registration crosshairs at corners ── */}
-        {([[28, 18], [612, 18], [612, 342], [28, 342]] as [number, number][]).map(([x, y], i) => (
-          <g key={`reg-${i}`}>
-            <motion.line x1={x - 10} y1={y} x2={x + 10} y2={y}
-              stroke="#22d3ee" strokeWidth="0.8" strokeOpacity="0.4"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 1 }}
-              transition={{ delay: 0.15 + i * 0.06, duration: 0.35 }}
-            />
-            <motion.line x1={x} y1={y - 10} x2={x} y2={y + 10}
-              stroke="#22d3ee" strokeWidth="0.8" strokeOpacity="0.4"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 1 }}
-              transition={{ delay: 0.15 + i * 0.06, duration: 0.35 }}
-            />
-          </g>
-        ))}
-
-        {/* ── Title block (draws early as frame element) ── */}
-        <motion.rect x="445" y="250" width="165" height="80" rx="2"
-          stroke="#22d3ee" strokeWidth="0.75" strokeOpacity="0.3" fill="none"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.7 }}
-        />
-        <motion.line x1="445" y1="265" x2="610" y2="265"
-          stroke="#22d3ee" strokeWidth="0.5" strokeOpacity="0.2"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ delay: 0.9, duration: 0.4 }}
-        />
-        {titleLines.map((t, i) => (
-          <motion.text key={t.text} x="527" y={t.y}
-            fill="#22d3ee" fillOpacity={t.op}
-            fontSize={t.size} fontFamily="monospace" textAnchor="middle"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            transition={{ delay: 1.0 + i * 0.12, duration: 0.3 }}
-          >
-            {t.text}
-          </motion.text>
-        ))}
-
-        {/* ── Outer building perimeter ── */}
-        <motion.path
-          d="M 60 45 L 430 45 L 430 310 L 60 310 Z"
-          stroke="#22d3ee" strokeWidth="2.2" fill="rgba(34,211,238,0.022)"
-          strokeLinecap="round" strokeLinejoin="round"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={draw(0.45, 1.5)}
-        />
-
-        {/* ── Interior walls ── */}
-        <motion.line x1="220" y1="45" x2="220" y2="310"
-          stroke="#22d3ee" strokeWidth="1.6" strokeLinecap="round"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={draw(1.75, 0.7)}
-        />
-        <motion.line x1="330" y1="45" x2="330" y2="185"
-          stroke="#22d3ee" strokeWidth="1.6" strokeLinecap="round"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={draw(2.05, 0.55)}
-        />
-        <motion.line x1="220" y1="185" x2="430" y2="185"
-          stroke="#22d3ee" strokeWidth="1.6" strokeLinecap="round"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={draw(2.3, 0.7)}
-        />
-
-        {/* ── Junction dots at wall intersections ── */}
-        {junctions.map(([x, y], i) => (
-          <motion.circle key={`jd-${i}`} cx={x} cy={y} r={3.5}
-            fill="#22d3ee"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 0.85 }}
-            transition={{ delay: 2.45 + i * 0.06, duration: 0.3, ease: EASE }}
-          />
-        ))}
-
-        {/* ── Top wall window indicators ── */}
-        {topWindows.map((x, i) => (
-          <motion.rect key={`tw-${i}`}
-            x={x - 14} y={38} width={28} height={8} rx="1.5"
-            fill="rgba(34,211,238,0.18)" stroke="#22d3ee" strokeWidth="0.75" strokeOpacity="0.65"
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: 1, opacity: 1 }}
-            style={{ transformOrigin: `${x}px 42px` }}
-            transition={{ delay: 2.65 + i * 0.08, duration: 0.4, ease: EASE }}
-          />
-        ))}
-
-        {/* ── Right wall window indicators ── */}
-        {[105, 250].map((y, i) => (
-          <motion.rect key={`rw-${i}`}
-            x={423} y={y - 10} width={8} height={20} rx="1.5"
-            fill="rgba(34,211,238,0.18)" stroke="#22d3ee" strokeWidth="0.75" strokeOpacity="0.65"
-            initial={{ scaleY: 0, opacity: 0 }}
-            animate={{ scaleY: 1, opacity: 1 }}
-            style={{ transformOrigin: `427px ${y}px` }}
-            transition={{ delay: 2.85 + i * 0.1, duration: 0.38, ease: EASE }}
-          />
-        ))}
-
-        {/* ── Door arcs (dashed = swing path) ── */}
-        <motion.path d="M 60 235 A 36 36 0 0 1 96 199"
-          stroke="#22d3ee" strokeWidth="0.9" strokeOpacity="0.55" fill="none"
-          strokeDasharray="3 2.5"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ delay: 3.05, duration: 0.55 }}
-        />
-        <motion.path d="M 220 125 A 30 30 0 0 0 250 95"
-          stroke="#22d3ee" strokeWidth="0.9" strokeOpacity="0.55" fill="none"
-          strokeDasharray="3 2.5"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ delay: 3.2, duration: 0.45 }}
-        />
-
-        {/* ── Room labels ── */}
-        {rooms.map((r, i) => (
-          <motion.text key={r.label} x={r.x} y={r.y}
-            fill="#22d3ee" fillOpacity="0.3"
-            fontSize="7.5" fontFamily="monospace" textAnchor="middle" letterSpacing="2"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            transition={{ delay: 3.35 + i * 0.1, duration: 0.4 }}
-          >
-            {r.label}
-          </motion.text>
-        ))}
-
-        {/* ── Dimension line: top ── */}
-        <motion.line x1="60" y1="23" x2="430" y2="23"
-          stroke="#22d3ee" strokeWidth="0.65" strokeOpacity="0.3" strokeDasharray="4 3"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ delay: 3.5, duration: 0.75 }}
-        />
-        {[60, 430].map((x, i) => (
-          <motion.line key={`dt-${i}`} x1={x} y1={18} x2={x} y2={28}
-            stroke="#22d3ee" strokeWidth="0.65" strokeOpacity="0.3"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            transition={{ delay: 3.9, duration: 0.2 }}
-          />
-        ))}
-        <motion.text x="245" y="19" fill="#22d3ee" fillOpacity="0.45"
-          fontSize="7" fontFamily="monospace" textAnchor="middle"
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-          transition={{ delay: 3.95, duration: 0.3 }}
-        >
-          30.00 m
-        </motion.text>
-
-        {/* ── Dimension line: left ── */}
-        <motion.line x1="40" y1="45" x2="40" y2="310"
-          stroke="#22d3ee" strokeWidth="0.65" strokeOpacity="0.3" strokeDasharray="4 3"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ delay: 3.6, duration: 0.65 }}
-        />
-        <motion.text x="40" y="182" fill="#22d3ee" fillOpacity="0.45"
-          fontSize="7" fontFamily="monospace" textAnchor="middle"
-          transform="rotate(-90,40,182)"
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-          transition={{ delay: 4.0, duration: 0.3 }}
-        >
-          22.00 m
-        </motion.text>
-
-        {/* ── North arrow ── */}
-        <g transform="translate(490, 80)">
-          <motion.circle cx="0" cy="0" r="16"
-            stroke="#22d3ee" strokeWidth="0.75" strokeOpacity="0.25" fill="none"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ delay: 3.6, duration: 0.55 }}
-          />
-          <motion.path d="M0,-14 L5,7 L0,3 L-5,7 Z"
-            fill="#22d3ee" fillOpacity="0.7"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 3.7, duration: 0.4, ease: EASE }}
-          />
-          <motion.text y="-21" x="0" fill="#22d3ee" fillOpacity="0.55"
-            fontSize="10" fontFamily="monospace" textAnchor="middle" fontWeight="bold"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            transition={{ delay: 3.8, duration: 0.3 }}
-          >
-            N
-          </motion.text>
-        </g>
-
-        {/* ── Live pulse indicator ── */}
-        <motion.circle cx="510" cy="32" r="4.5"
-          fill="#22c55e"
-          animate={{ opacity: [1, 0.35, 1], r: [4.5, 5.5, 4.5] }}
-          transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.circle cx="510" cy="32" r="10"
-          stroke="#22c55e" strokeWidth="1" strokeOpacity="0.3" fill="none"
-          animate={{ opacity: [0.3, 0, 0.3], r: [10, 18, 10] }}
-          transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.text x="521" y="36"
-          fill="#22c55e" fillOpacity="0.7" fontSize="7" fontFamily="monospace"
+    <div
+      className="relative overflow-hidden rounded-2xl ring-1 ring-white/10"
+      style={{ background: "#020617" }}
+    >
+      {/* Window chrome bar */}
+      <div className="flex items-center gap-2 border-b border-white/5 px-4 py-2.5">
+        <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
+        <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/80" />
+        <span className="h-2.5 w-2.5 rounded-full bg-green-500/80" />
+        <span className="mx-auto text-[11px] font-medium text-white/30 tracking-wide">
+          Bloqer — Tablero de Control
+        </span>
+        <motion.div
+          className="flex items-center gap-1.5"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 3.9 }}
+          transition={{ delay: 2.5, duration: 0.5 }}
         >
-          EN VIVO
-        </motion.text>
+          <motion.span
+            className="h-1.5 w-1.5 rounded-full bg-green-400"
+            animate={{ opacity: [1, 0.3, 1] }}
+            transition={{ duration: 2.5, repeat: Infinity }}
+          />
+          <span className="text-[10px] text-green-400/70">en vivo</span>
+        </motion.div>
+      </div>
 
-        {/* ── Scan line (subtle) ── */}
-        <motion.line x1="60" y1="45" x2="60" y2="310"
-          stroke="#22d3ee" strokeWidth="1.5" strokeOpacity="0"
-          animate={{ x1: [60, 430, 60], x2: [60, 430, 60], strokeOpacity: [0, 0.06, 0] }}
-          transition={{ duration: 6, delay: 4.5, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </svg>
+      {/* Content */}
+      <div className="flex" style={{ height: 370 }}>
+        {/* ── Sidebar ── */}
+        <motion.aside
+          className="hidden w-44 shrink-0 flex-col border-r border-white/5 sm:flex"
+          style={{ background: "#020617" }}
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
+        >
+          {/* Logo */}
+          <div className="flex items-center gap-2 px-4 py-4 border-b border-white/5">
+            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary-500 text-white">
+              <span className="text-[10px] font-black">B</span>
+            </div>
+            <span className="text-sm font-semibold text-white">Bloqer</span>
+          </div>
+
+          {/* Nav */}
+          <nav className="flex-1 overflow-hidden p-2 space-y-3">
+            {navSections.map((sec, si) => (
+              <div key={sec.label}>
+                <p className="px-2 pb-1 text-[9px] font-bold tracking-widest text-white/25 uppercase">
+                  {sec.label}
+                </p>
+                {sec.items.map((item, ii) => (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.25 + si * 0.1 + ii * 0.06, duration: 0.4, ease: EASE }}
+                    className={`flex items-center gap-2 rounded-md px-2 py-1.5 mb-0.5 ${
+                      item.active
+                        ? "bg-primary-500/15 text-primary-400"
+                        : "text-white/40 hover:text-white/60"
+                    }`}
+                  >
+                    <item.icon className="h-3.5 w-3.5 shrink-0" />
+                    <span className="text-[11px] font-medium">{item.label}</span>
+                    {item.active && (
+                      <span className="ml-auto h-1 w-1 rounded-full bg-primary-400" />
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            ))}
+          </nav>
+
+          {/* User */}
+          <motion.div
+            className="border-t border-white/5 p-3 flex items-center gap-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.4 }}
+          >
+            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-primary-600 to-primary-700 text-[10px] font-bold text-white">
+              DB
+            </div>
+            <div className="min-w-0">
+              <p className="truncate text-[10px] font-medium text-white/70">Demo Bloqer</p>
+              <p className="text-[9px] text-white/30">Admin</p>
+            </div>
+          </motion.div>
+        </motion.aside>
+
+        {/* ── Main area ── */}
+        <div className="flex-1 overflow-hidden bg-slate-900/60 p-4 sm:p-5">
+          {/* Header */}
+          <motion.div
+            className="mb-4 flex items-start justify-between"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.55, ease: EASE }}
+          >
+            <div>
+              <h2 className="text-sm font-extrabold text-white">Tablero de Control</h2>
+              <p className="text-[10px] text-white/35">Resumen de la actividad de tu organización</p>
+            </div>
+            <motion.div
+              className="flex items-center gap-1 rounded-lg bg-white/5 px-2 py-1"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.4 }}
+            >
+              <Bell className="h-3 w-3 text-white/30" />
+              <span className="text-[10px] text-white/30">0 alertas</span>
+            </motion.div>
+          </motion.div>
+
+          {/* ── Stat cards ── */}
+          <div className="mb-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+            {stats.map((s, i) => (
+              <motion.div
+                key={s.label}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 + i * 0.09, duration: 0.5, ease: EASE }}
+                className="rounded-xl border border-white/6 bg-white/4 p-3"
+              >
+                <p className="mb-1 text-[9px] text-white/35 leading-tight">{s.label}</p>
+                <motion.p
+                  className={`text-lg font-extrabold leading-none ${s.valueColor}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.85 + i * 0.09, duration: 0.4 }}
+                >
+                  {s.value}
+                </motion.p>
+                <p className="mt-1 text-[8px] text-white/25">{s.sub}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* ── Chart area ── */}
+          <motion.div
+            className="relative overflow-hidden rounded-xl border border-white/6 bg-white/3 p-3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.9, duration: 0.6 }}
+          >
+            <div className="mb-2 flex items-center justify-between">
+              <div>
+                <p className="text-[10px] font-semibold text-white/70">Flujo de Caja</p>
+                <p className="text-[9px] text-white/30">Ingresos y gastos por periodo</p>
+              </div>
+              <div className="flex gap-1">
+                {["3 meses", "6 meses", "Año"].map((l, i) => (
+                  <span
+                    key={l}
+                    className={`rounded px-2 py-0.5 text-[8px] ${i === 1 ? "bg-primary-500/20 text-primary-400" : "text-white/25"}`}
+                  >
+                    {l}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <svg viewBox="0 0 440 90" className="w-full" style={{ height: 90 }}>
+              <defs>
+                <linearGradient id="dashGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.35" />
+                  <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.02" />
+                </linearGradient>
+              </defs>
+              {/* Grid lines */}
+              {[22, 45, 68].map((y) => (
+                <line key={y} x1="0" y1={y} x2="440" y2={y}
+                  stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+              ))}
+              {/* Area fill */}
+              <motion.path
+                d={areaPath}
+                fill="url(#dashGrad)"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.8, duration: 0.6 }}
+              />
+              {/* Main line */}
+              <motion.polyline
+                points={chartPoints}
+                fill="none"
+                stroke="#3b82f6"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ delay: 1.2, duration: 1.6, ease: EASE }}
+              />
+              {/* Live dot at end */}
+              <motion.circle
+                cx="440" cy="22" r="4"
+                fill="#3b82f6"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 2.7, duration: 0.3 }}
+              />
+              <motion.circle
+                cx="440" cy="22" r="8"
+                fill="none"
+                stroke="#3b82f6"
+                strokeWidth="1"
+                strokeOpacity="0.4"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: [0, 1.5, 1], opacity: [0, 0.4, 0] }}
+                transition={{ delay: 2.8, duration: 1, repeat: Infinity, repeatDelay: 2 }}
+              />
+              {/* Month labels */}
+              {["Oct", "Nov", "Dic", "Ene", "Feb", "Mar"].map((m, i) => (
+                <motion.text
+                  key={m}
+                  x={i * 88} y={88}
+                  fill="rgba(255,255,255,0.2)"
+                  fontSize="7"
+                  fontFamily="system-ui"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.4 + i * 0.05 }}
+                >
+                  {m}
+                </motion.text>
+              ))}
+            </svg>
+          </motion.div>
+
+          {/* ── Bottom metrics row ── */}
+          <motion.div
+            className="mt-2 grid grid-cols-3 gap-2"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.0, duration: 0.5, ease: EASE }}
+          >
+            {[
+              { label: "Total Ingresos", value: "$1.8M", color: "text-green-400" },
+              { label: "Total Gastos", value: "$612K", color: "text-red-400" },
+              { label: "Balance Período", value: "+$1.2M", color: "text-primary-400" },
+            ].map((m) => (
+              <div key={m.label} className="rounded-lg bg-white/3 px-2.5 py-2">
+                <p className="text-[8px] text-white/30">{m.label}</p>
+                <p className={`text-[11px] font-bold ${m.color}`}>{m.value}</p>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -372,7 +397,7 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* ── Animated Blueprint SVG ── */}
+        {/* ── Dashboard Mockup ── */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -381,8 +406,8 @@ export function Hero() {
         >
           <div className="absolute -inset-6 rounded-3xl bg-primary-500/8 blur-2xl" />
           <div className="absolute -inset-1 rounded-2xl bg-gradient-to-b from-white/6 to-transparent" />
-          <div className="relative ring-1 ring-white/5 rounded-2xl">
-            <BlueprintFloorPlan />
+          <div className="relative">
+            <DashboardMockup />
           </div>
         </motion.div>
       </div>

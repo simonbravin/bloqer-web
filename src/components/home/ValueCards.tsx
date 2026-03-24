@@ -5,177 +5,69 @@ import { Clock, DollarSign, ShieldCheck, Users, BarChart3, AlertTriangle } from 
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { EASE, StaggerContainer, StaggerItem } from "@/components/motion";
 
-// ── Mini animated widgets (autonomous, no interaction needed) ─────────────
-
-// Budget vs Real comparison bars
-function CostWidget() {
-  return (
-    <div className="flex items-end gap-3 h-11">
-      {/* Budget bar (static reference) */}
-      <div className="flex flex-col items-center gap-1">
-        <div className="w-6 bg-gray-100 rounded-sm overflow-hidden" style={{ height: 36 }}>
-          <div className="w-full bg-gray-300 rounded-sm" style={{ height: "100%" }} />
-        </div>
-        <span className="text-[8px] font-mono text-gray-400 tracking-wide">PPTO</span>
-      </div>
-      {/* Real bar (animates to show under-budget) */}
-      <div className="flex flex-col items-center gap-1">
-        <div className="w-6 bg-gray-100 rounded-sm overflow-hidden" style={{ height: 36 }}>
-          <motion.div
-            className="w-full bg-gradient-to-t from-primary-600 to-primary-400 rounded-sm"
-            style={{ originY: 1 }}
-            animate={{ scaleY: [0, 0.82, 0.82, 0] }}
-            transition={{ duration: 3, repeat: Infinity, repeatDelay: 1.5, ease: EASE, times: [0, 0.3, 0.85, 1] }}
-          />
-        </div>
-        <span className="text-[8px] font-mono text-gray-400 tracking-wide">REAL</span>
-      </div>
-      {/* Savings badge */}
-      <motion.span
-        className="mb-5 rounded bg-green-50 px-1.5 py-0.5 text-[9px] font-bold text-green-600 ring-1 ring-green-100"
-        animate={{ opacity: [0, 0, 1, 1, 0] }}
-        transition={{ duration: 3, repeat: Infinity, repeatDelay: 1.5, times: [0, 0.3, 0.45, 0.85, 1] }}
-      >
-        −18%
-      </motion.span>
-    </div>
-  );
-}
-
-// Audit trail — dots ping sequentially down the timeline
-function TraceWidget() {
-  const dots = [
-    { label: "09:14", color: "bg-primary-500" },
-    { label: "11:32", color: "bg-primary-400" },
-    { label: "14:05", color: "bg-blueprint-400" },
-    { label: "16:48", color: "bg-blueprint-500" },
-  ];
-  return (
-    <div className="flex flex-col gap-1.5 h-11 justify-center">
-      {dots.map((dot, i) => (
-        <div key={dot.label} className="flex items-center gap-2">
-          <motion.span
-            className={`h-1.5 w-1.5 rounded-full ${dot.color} shrink-0`}
-            animate={{ opacity: [0.2, 1, 0.2], scale: [1, 1.5, 1] }}
-            transition={{
-              duration: 2.4,
-              repeat: Infinity,
-              delay: i * 0.55,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.span
-            className="text-[8px] font-mono text-gray-400"
-            animate={{ opacity: [0.3, 0.8, 0.3] }}
-            transition={{ duration: 2.4, repeat: Infinity, delay: i * 0.55 }}
-          >
-            {dot.label} — actualización
-          </motion.span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-// Sparkline that continuously draws and resets
-function DataWidget() {
-  const points = "0,32 18,28 36,30 54,20 72,24 90,14 108,18 126,10 144,14 162,8";
-  return (
-    <div className="h-11 flex items-center">
-      <svg viewBox="0 0 162 40" className="w-full" style={{ height: 44 }}>
-        {/* Area fill */}
-        <motion.path
-          d="M0,32 18,28 36,30 54,20 72,24 90,14 108,18 126,10 144,14 162,8 L162,40 L0,40 Z"
-          fill="url(#sparkGrad)"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0.35, 0.35, 0] }}
-          transition={{ duration: 3.5, repeat: Infinity, repeatDelay: 0.8, times: [0, 0.3, 0.85, 1] }}
-        />
-        {/* Line */}
-        <motion.polyline
-          points={points}
-          fill="none"
-          stroke="#3b82f6"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: [0, 1, 1, 0], opacity: [0, 1, 1, 0] }}
-          transition={{ duration: 3.5, repeat: Infinity, repeatDelay: 0.8, ease: EASE, times: [0, 0.45, 0.85, 1] }}
-        />
-        {/* Live dot */}
-        <motion.circle cx="162" cy="8" r="3" fill="#3b82f6"
-          animate={{ opacity: [0, 0, 1, 0], scale: [0.5, 0.5, 1, 0.5] }}
-          transition={{ duration: 3.5, repeat: Infinity, repeatDelay: 0.8, times: [0, 0.43, 0.55, 1] }}
-        />
-        <defs>
-          <linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-      </svg>
-    </div>
-  );
-}
-
-// ── Card definitions ───────────────────────────────────────────────────────
+// Card data — icon, title, description, color token
 const VALUES = [
   {
     icon: Clock,
     title: "Ahorrá tiempo",
     description: "Automatizá procesos manuales que hoy te cuestan horas en planillas y correos.",
-    widget: null,
-    accent: "from-gray-50 to-gray-100/50",
-    iconColor: "text-gray-500",
-    iconBg: "bg-gray-50 ring-gray-100",
+    barColor: "from-gray-400 to-gray-500",
+    ringColor: "rgba(100,116,139,0.3)",
+    iconGrad: "from-gray-50 to-slate-100",
+    iconText: "text-slate-500",
+    iconRing: "ring-slate-200",
   },
   {
     icon: DollarSign,
     title: "Controlá costos",
     description: "Comparar presupuesto vs. real en tiempo real. Detectá desviaciones antes de que escalen.",
-    widget: <CostWidget />,
-    accent: "from-primary-50/80 to-primary-50/30",
-    iconColor: "text-primary-600",
-    iconBg: "bg-primary-50 ring-primary-100",
+    barColor: "from-primary-400 to-primary-600",
+    ringColor: "rgba(59,130,246,0.3)",
+    iconGrad: "from-primary-50 to-blue-100",
+    iconText: "text-primary-600",
+    iconRing: "ring-primary-100",
   },
   {
     icon: AlertTriangle,
     title: "Menos errores",
     description: "Una sola fuente de verdad elimina duplicaciones, versiones desactualizadas y pérdidas de información.",
-    widget: null,
-    accent: "from-amber-50/60 to-amber-50/20",
-    iconColor: "text-amber-500",
-    iconBg: "bg-amber-50 ring-amber-100",
+    barColor: "from-amber-400 to-orange-500",
+    ringColor: "rgba(245,158,11,0.3)",
+    iconGrad: "from-amber-50 to-yellow-100",
+    iconText: "text-amber-500",
+    iconRing: "ring-amber-100",
   },
   {
     icon: ShieldCheck,
     title: "Trazabilidad completa",
     description: "Cada movimiento queda registrado: quién, qué, cuándo. Auditoría en cualquier momento.",
-    widget: <TraceWidget />,
-    accent: "from-blueprint-50/60 to-blueprint-50/20",
-    iconColor: "text-blueprint-500",
-    iconBg: "bg-blueprint-50 ring-blueprint-100",
+    barColor: "from-blueprint-400 to-cyan-500",
+    ringColor: "rgba(34,211,238,0.3)",
+    iconGrad: "from-cyan-50 to-sky-100",
+    iconText: "text-blueprint-500",
+    iconRing: "ring-cyan-100",
   },
   {
     icon: Users,
     title: "Colaboración real",
     description: "Ingenieros, administrativos y directores ven lo que necesitan, con los permisos correctos.",
-    widget: null,
-    accent: "from-violet-50/60 to-violet-50/20",
-    iconColor: "text-violet-500",
-    iconBg: "bg-violet-50 ring-violet-100",
+    barColor: "from-violet-400 to-purple-500",
+    ringColor: "rgba(139,92,246,0.3)",
+    iconGrad: "from-violet-50 to-purple-100",
+    iconText: "text-violet-500",
+    iconRing: "ring-violet-100",
   },
   {
     icon: BarChart3,
     title: "Decisiones con datos",
     description: "Dashboards y reportes que te muestran el estado real de cada proyecto al instante.",
-    widget: <DataWidget />,
-    accent: "from-primary-50/80 to-primary-50/30",
-    iconColor: "text-primary-600",
-    iconBg: "bg-primary-50 ring-primary-100",
+    barColor: "from-primary-400 to-indigo-500",
+    ringColor: "rgba(59,130,246,0.3)",
+    iconGrad: "from-indigo-50 to-blue-100",
+    iconText: "text-indigo-500",
+    iconRing: "ring-indigo-100",
   },
-];
+] as const;
 
 export function ValueCards() {
   return (
@@ -188,26 +80,46 @@ export function ValueCards() {
         />
 
         <StaggerContainer className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {VALUES.map((v) => (
+          {VALUES.map((v, i) => (
             <StaggerItem key={v.title}>
-              <div className="group relative flex h-full flex-col rounded-2xl border border-gray-100/80 bg-white p-7 transition-colors duration-300 hover:border-gray-200">
-                {/* Subtle gradient header */}
-                <div className={`absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r ${v.accent} opacity-0 transition-opacity duration-500 group-hover:opacity-100`} />
+              <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white p-7">
 
-                {/* Icon */}
-                <div className={`mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${v.accent} ${v.iconColor} ring-1 ${v.iconBg}`}>
-                  <v.icon className="h-5 w-5" />
+                {/* Animated top bar — draws on scroll (via stagger delay inherited) */}
+                <motion.div
+                  className={`absolute top-0 left-0 h-0.5 bg-gradient-to-r ${v.barColor} rounded-t-2xl`}
+                  style={{ right: 0, originX: 0 }}
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.85, ease: EASE, delay: 0.12 + i * 0.08 }}
+                />
+
+                {/* Icon with continuous pulse ring */}
+                <div className="relative mb-5 h-11 w-11">
+                  {/* Expanding ring */}
+                  <motion.span
+                    className="absolute inset-0 rounded-xl"
+                    style={{ boxShadow: `0 0 0 0 ${v.ringColor}` }}
+                    animate={{
+                      boxShadow: [
+                        `0 0 0 0px ${v.ringColor}`,
+                        `0 0 0 10px rgba(0,0,0,0)`,
+                      ],
+                    }}
+                    transition={{
+                      duration: 2.8,
+                      repeat: Infinity,
+                      ease: "easeOut",
+                      delay: i * 0.4,
+                    }}
+                  />
+                  <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${v.iconGrad} ${v.iconText} ring-1 ${v.iconRing}`}>
+                    <v.icon className="h-5 w-5" />
+                  </div>
                 </div>
 
                 <h3 className="text-base font-bold text-gray-900">{v.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-gray-500">{v.description}</p>
-
-                {/* Animated widget (only for 3 cards) */}
-                {v.widget && (
-                  <div className="mt-5 border-t border-gray-50 pt-4">
-                    {v.widget}
-                  </div>
-                )}
               </div>
             </StaggerItem>
           ))}

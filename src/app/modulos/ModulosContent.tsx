@@ -20,6 +20,7 @@ import { ScreenshotPlaceholder } from "@/components/ui/ScreenshotPlaceholder";
 import { CTABand } from "@/components/home/CTABand";
 import { REGISTER_URL } from "@/lib/constants";
 import { ArrowRight } from "lucide-react";
+import { EASE, MotionSection, StaggerContainer, StaggerItem } from "@/components/motion";
 
 interface Module {
   id: string;
@@ -185,7 +186,6 @@ export function ModulosContent() {
         id: m.id,
         el: document.getElementById(m.id),
       }));
-
       for (const section of sections) {
         if (section.el) {
           const rect = section.el.getBoundingClientRect();
@@ -196,26 +196,40 @@ export function ModulosContent() {
         }
       }
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <>
-      {/* Hero */}
+      {/* ── Hero ── */}
       <section className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 pt-28 pb-16 sm:pt-40 sm:pb-20">
         <div className="pointer-events-none absolute inset-0 bg-blueprint-grid-dark" />
-        <div className="pointer-events-none absolute -top-40 -right-40 h-[500px] w-[500px] rounded-full bg-primary-600/10 blur-[120px]" />
+        {/* Breathing orbs */}
+        <motion.div
+          className="pointer-events-none absolute -top-40 -right-40 h-[500px] w-[500px] rounded-full bg-primary-600/10 blur-[120px]"
+          animate={{ scale: [1, 1.12, 1], opacity: [0.5, 0.8, 0.5] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="pointer-events-none absolute bottom-10 -left-20 h-[400px] w-[400px] rounded-full bg-blueprint-500/7 blur-[100px]"
+          animate={{ scale: [1, 1.08, 1], opacity: [0.3, 0.6, 0.3] }}
+          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+        />
         <div className="pointer-events-none absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-blueprint-400/20 to-transparent" />
 
         <div className="relative mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.72, ease: EASE }}
           >
             <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wider text-blueprint-200 uppercase backdrop-blur-sm">
-              <span className="h-1.5 w-1.5 rounded-full bg-blueprint-400" />
+              <motion.span
+                className="h-1.5 w-1.5 rounded-full bg-blueprint-400"
+                animate={{ opacity: [1, 0.25, 1] }}
+                transition={{ duration: 2.8, repeat: Infinity }}
+              />
               Módulos
             </span>
             <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
@@ -235,7 +249,7 @@ export function ModulosContent() {
         <div className="pointer-events-none absolute bottom-0 right-0 left-0 h-24 bg-gradient-to-t from-white to-transparent" />
       </section>
 
-      {/* Modules with sticky sidebar */}
+      {/* ── Modules with sticky sidebar ── */}
       <section className="bg-white py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-[280px_1fr] lg:gap-12">
@@ -278,10 +292,10 @@ export function ModulosContent() {
                 <motion.div
                   key={mod.id}
                   id={mod.id}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 36 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ delay: 0.1 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.72, ease: EASE }}
                   className="scroll-mt-24"
                 >
                   <div className={cn(
@@ -308,15 +322,20 @@ export function ModulosContent() {
                       <p className="mt-3 text-sm leading-relaxed text-gray-500">
                         {mod.description}
                       </p>
+                      {/* Staggered outcomes */}
                       <ul className="mt-5 space-y-2.5">
-                        {mod.outcomes.map((o) => (
-                          <li
+                        {mod.outcomes.map((o, oi) => (
+                          <motion.li
                             key={o}
                             className="flex items-start gap-3 text-sm text-gray-500"
+                            initial={{ opacity: 0, x: -12 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.15 + oi * 0.1, duration: 0.55, ease: EASE }}
                           >
                             <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-500" />
                             {o}
-                          </li>
+                          </motion.li>
                         ))}
                       </ul>
                     </div>
@@ -334,31 +353,38 @@ export function ModulosContent() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* ── CTA ── */}
       <section className="relative bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 py-20 sm:py-24">
         <div className="pointer-events-none absolute inset-0 bg-blueprint-grid-dark" />
+        <motion.div
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary-600/8 blur-[100px]"
+          animate={{ scale: [1, 1.15, 1] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
         <div className="pointer-events-none absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-blueprint-400/15 to-transparent" />
 
-        <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6">
-          <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
-            ¿Listo para probarlo?
-          </h2>
-          <p className="mt-4 text-gray-400">
-            Creá tu cuenta y activá los módulos que tu equipo necesita. Empezá
-            con un proyecto de prueba, sin costo.
-          </p>
-          <div className="mt-8">
-            <Button
-              variant="primary"
-              size="lg"
-              href={REGISTER_URL}
-              className="bg-primary-500 shadow-lg shadow-primary-500/25 hover:bg-primary-400"
-            >
-              Empezar gratis
-              <ArrowRight className="h-4 w-4" />
-            </Button>
+        <MotionSection>
+          <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6">
+            <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
+              ¿Listo para probarlo?
+            </h2>
+            <p className="mt-4 text-gray-400">
+              Creá tu cuenta y activá los módulos que tu equipo necesita. Empezá
+              con un proyecto de prueba, sin costo.
+            </p>
+            <div className="mt-8">
+              <Button
+                variant="primary"
+                size="lg"
+                href={REGISTER_URL}
+                className="bg-primary-500 shadow-lg shadow-primary-500/25 hover:bg-primary-400"
+              >
+                Empezar gratis
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
-        </div>
+        </MotionSection>
       </section>
 
       <CTABand />
