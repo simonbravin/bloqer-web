@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { UserPlus, Settings, Rocket } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { EASE, StaggerContainer, StaggerItem } from "@/components/motion";
 
 const STEPS = [
   {
@@ -37,40 +38,87 @@ export function HowItWorks() {
           title="En tres pasos empezás a controlar tu obra"
         />
 
-        <div className="grid gap-8 md:grid-cols-3">
-          {STEPS.map((step, i) => (
-            <motion.div
-              key={step.number}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
-              className="relative text-center"
+        <div className="relative">
+          {/* ── Animated connector line (desktop only) ── */}
+          <div className="absolute top-10 left-0 right-0 hidden md:block">
+            <svg
+              className="w-full overflow-visible"
+              height="2"
+              viewBox="0 0 100 2"
+              preserveAspectRatio="none"
             >
-              {/* Connector line */}
-              {i < STEPS.length - 1 && (
-                <div className="absolute top-10 right-0 hidden h-px w-full translate-x-1/2 md:block">
-                  <div className="h-full w-full bg-gradient-to-r from-primary-200 via-primary-200 to-primary-100" />
-                  <div className="absolute top-1/2 right-0 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-primary-200" />
-                </div>
-              )}
+              <motion.line
+                x1="16" y1="1" x2="84" y2="1"
+                stroke="url(#connectorGrad)"
+                strokeWidth="1"
+                initial={{ pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, ease: EASE, delay: 0.5 }}
+              />
+              <defs>
+                <linearGradient id="connectorGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#bfdbfe" stopOpacity="0" />
+                  <stop offset="20%" stopColor="#bfdbfe" stopOpacity="1" />
+                  <stop offset="80%" stopColor="#bfdbfe" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#bfdbfe" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
 
-              <div className="relative mx-auto mb-2 flex h-20 w-20 items-center justify-center">
-                {/* Background ring */}
-                <div className="absolute inset-0 rounded-2xl bg-primary-50 ring-1 ring-primary-100" />
-                <div className="relative flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-primary-600 to-primary-700 text-white shadow-lg shadow-primary-600/25">
-                  <step.icon className="h-7 w-7" />
+          <StaggerContainer className="grid gap-10 md:grid-cols-3" delay={0.3}>
+            {STEPS.map((step, i) => (
+              <StaggerItem key={step.number}>
+                <div className="relative text-center">
+                  {/* Step icon container */}
+                  <div className="relative mx-auto mb-4 flex h-20 w-20 items-center justify-center">
+                    {/* Outer ring */}
+                    <div className="absolute inset-0 rounded-2xl bg-primary-50 ring-1 ring-primary-100" />
+
+                    {/* Subtle breathing pulse on the ring */}
+                    <motion.div
+                      className="absolute inset-0 rounded-2xl bg-primary-100/0 ring-1 ring-primary-200/0"
+                      animate={{ opacity: [0, 0.6, 0] }}
+                      transition={{
+                        duration: 2.5,
+                        repeat: Infinity,
+                        delay: i * 0.8,
+                        ease: "easeInOut",
+                      }}
+                    />
+
+                    {/* Icon */}
+                    <motion.div
+                      className="relative flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-primary-600 to-primary-700 text-white shadow-lg shadow-primary-600/25"
+                      initial={{ scale: 0, rotate: -10 }}
+                      whileInView={{ scale: 1, rotate: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.55, ease: EASE, delay: 0.4 + i * 0.15 }}
+                    >
+                      <step.icon className="h-7 w-7" />
+                    </motion.div>
+                  </div>
+
+                  {/* Step number dot */}
+                  <motion.span
+                    className="mt-3 mb-2 block text-xs font-bold tracking-wider text-primary-500 uppercase"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.55 + i * 0.15, duration: 0.4 }}
+                  >
+                    Paso {step.number}
+                  </motion.span>
+
+                  <h3 className="text-xl font-bold text-gray-900">{step.title}</h3>
+                  <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-gray-500">
+                    {step.description}
+                  </p>
                 </div>
-              </div>
-              <span className="mt-4 mb-2 block text-xs font-bold tracking-wider text-primary-500 uppercase">
-                Paso {step.number}
-              </span>
-              <h3 className="text-xl font-bold text-gray-900">{step.title}</h3>
-              <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-gray-500">
-                {step.description}
-              </p>
-            </motion.div>
-          ))}
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
         </div>
       </div>
     </section>
