@@ -188,12 +188,12 @@ export function TerminosContent() {
                   </a>{" "}
                   o por WhatsApp al{" "}
                   <a
-                    href="https://wa.me/50766785050"
+                    href="https://wa.me/50766284172"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-primary-600 hover:underline"
                   >
-                    +507 6678-5050
+                    +507 6628-4172
                   </a>
                   .
                 </p>
