@@ -1,12 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Building2, HardHat, Briefcase } from "lucide-react";
+import { Building2, HardHat, Briefcase, PenTool } from "lucide-react";
 
 const SEGMENTS = [
   { icon: Building2, label: "Constructoras" },
   { icon: HardHat, label: "Contratistas" },
   { icon: Briefcase, label: "Desarrolladores" },
+  { icon: PenTool, label: "Arquitectos" },
 ];
 
 export function SocialProof() {
@@ -14,7 +15,7 @@ export function SocialProof() {
     <section className="relative border-b border-gray-100 bg-white py-14">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <p className="mb-8 text-center text-xs font-semibold tracking-[0.2em] text-gray-400 uppercase">
-          Diseñado para equipos de construcción en Latinoamérica
+          Diseñado para equipos de construcción
         </p>
         <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-16">
           {SEGMENTS.map((seg, i) => (

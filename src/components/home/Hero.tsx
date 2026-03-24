@@ -31,7 +31,7 @@ export function Hero() {
           >
             <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wider text-blueprint-200 uppercase backdrop-blur-sm">
               <span className="h-1.5 w-1.5 rounded-full bg-blueprint-400 animate-pulse" />
-              ERP de Construcción para Latinoamérica
+              ERP de Construcción
             </span>
           </motion.div>
 

@@ -30,12 +30,17 @@ const TESTIMONIALS = [
 
 export function Testimonials() {
   return (
-    <section className="bg-gray-50 py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="relative bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 py-24 sm:py-32">
+      <div className="pointer-events-none absolute inset-0 bg-blueprint-grid-dark" />
+      <div className="pointer-events-none absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-blueprint-400/15 to-transparent" />
+      <div className="pointer-events-none absolute -top-20 left-1/2 h-64 w-[600px] -translate-x-1/2 rounded-full bg-primary-600/8 blur-[80px]" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badge="Testimonios"
           title="Lo que dicen nuestros usuarios"
-          description="Equipos de construcción en Latinoamérica ya gestionan sus obras con Bloqer."
+          description="Equipos de construcción ya gestionan sus obras con Bloqer."
+          dark
         />
 
         <div className="grid gap-6 md:grid-cols-3">
@@ -46,10 +51,10 @@ export function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="group relative flex flex-col rounded-2xl border border-gray-100 bg-white p-8 shadow-card transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1"
+              className="group relative flex flex-col rounded-2xl border border-white/8 bg-white/5 p-8 backdrop-blur-sm transition-all duration-300 hover:bg-white/8 hover:border-white/15"
             >
               {/* Quote icon */}
-              <Quote className="mb-4 h-8 w-8 text-primary-100" />
+              <Quote className="mb-4 h-8 w-8 text-blueprint-400/40" />
 
               {/* Stars */}
               <div className="mb-4 flex gap-0.5">
@@ -61,17 +66,17 @@ export function Testimonials() {
                 ))}
               </div>
 
-              <blockquote className="flex-1 text-sm leading-relaxed text-gray-600">
+              <blockquote className="flex-1 text-sm leading-relaxed text-gray-300">
                 &ldquo;{t.quote}&rdquo;
               </blockquote>
 
-              <div className="mt-6 flex items-center gap-3 border-t border-gray-50 pt-5">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-50 text-sm font-bold text-primary-600">
+              <div className="mt-6 flex items-center gap-3 border-t border-white/8 pt-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-primary-600 text-sm font-bold text-white shadow-md shadow-primary-500/25">
                   {t.name.charAt(0)}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900">{t.name}</p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-sm font-semibold text-white">{t.name}</p>
+                  <p className="text-xs text-gray-400">
                     {t.role} — {t.company}
                   </p>
                 </div>

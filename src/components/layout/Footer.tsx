@@ -113,10 +113,30 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 border-t border-gray-200/60 pt-8 text-center">
+        <div className="mt-12 border-t border-gray-200/60 pt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
           <p className="text-xs text-gray-400">
             &copy; {new Date().getFullYear()} Bloqer. Todos los derechos reservados.
           </p>
+          <nav className="flex flex-wrap justify-center gap-x-5 gap-y-1">
+            <Link
+              href="/terminos-y-condiciones"
+              className="text-xs text-gray-400 transition-colors hover:text-primary-600"
+            >
+              Términos y condiciones
+            </Link>
+            <Link
+              href="/politica-de-privacidad"
+              className="text-xs text-gray-400 transition-colors hover:text-primary-600"
+            >
+              Política de privacidad
+            </Link>
+            <Link
+              href="/politica-de-reembolso"
+              className="text-xs text-gray-400 transition-colors hover:text-primary-600"
+            >
+              Política de reembolso
+            </Link>
+          </nav>
         </div>
       </div>
     </footer>
