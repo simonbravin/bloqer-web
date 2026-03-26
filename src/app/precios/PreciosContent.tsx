@@ -181,31 +181,9 @@ export function PreciosContent() {
                     transition={{ duration: 0.3, ease: EASE }}
                   >
                     <div className="flex items-baseline gap-2">
-                      <motion.span
-                        className="inline-block text-6xl font-extrabold tracking-tight text-gray-900"
-                        animate={{
-                          y: [0, -5, 0],
-                          textShadow: [
-                            "0 0 0 rgba(59, 130, 246, 0), 0 0 0 rgba(59, 130, 246, 0)",
-                            "0 0 28px rgba(59, 130, 246, 0.45), 0 0 52px rgba(59, 130, 246, 0.2)",
-                            "0 0 0 rgba(59, 130, 246, 0), 0 0 0 rgba(59, 130, 246, 0)",
-                          ],
-                        }}
-                        transition={{
-                          y: {
-                            duration: 3.2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                          },
-                          textShadow: {
-                            duration: 1.85,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                          },
-                        }}
-                      >
+                      <span className="text-6xl font-extrabold tracking-tight text-gray-900">
                         ${active.price}
-                      </motion.span>
+                      </span>
                       <span className="text-sm text-gray-500">{active.billingNote}</span>
                     </div>
 
@@ -229,15 +207,39 @@ export function PreciosContent() {
                 </p>
 
                 <div className="mt-8 flex flex-col gap-3">
-                  <Button
-                    variant="primary"
-                    size="lg"
-                    href={REGISTER_URL}
-                    className="w-full bg-primary-500 shadow-lg shadow-primary-500/25 hover:bg-primary-400"
+                  <motion.div
+                    className="w-full rounded-lg will-change-transform"
+                    animate={{
+                      y: [0, -1.5, 0],
+                      boxShadow: [
+                        "0 6px 22px -4px rgba(59, 130, 246, 0.07)",
+                        "0 8px 30px -4px rgba(59, 130, 246, 0.12)",
+                        "0 6px 22px -4px rgba(59, 130, 246, 0.07)",
+                      ],
+                    }}
+                    transition={{
+                      y: {
+                        duration: 5.5,
+                        repeat: Infinity,
+                        ease: [0.42, 0, 0.58, 1],
+                      },
+                      boxShadow: {
+                        duration: 4.25,
+                        repeat: Infinity,
+                        ease: [0.42, 0, 0.58, 1],
+                      },
+                    }}
                   >
-                    {active.cta}
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
+                    <Button
+                      variant="primary"
+                      size="lg"
+                      href={REGISTER_URL}
+                      className="w-full bg-primary-500 shadow-none hover:bg-primary-400 hover:shadow-md hover:shadow-primary-500/15"
+                    >
+                      {active.cta}
+                      <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </motion.div>
                   <Button
                     variant="ghost"
                     size="lg"
