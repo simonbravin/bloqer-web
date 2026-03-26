@@ -152,7 +152,7 @@ export function PreciosContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.72, ease: EASE }}
-            className="relative rounded-3xl border-2 border-primary-500 bg-white shadow-card-elevated ring-1 ring-primary-500/20 overflow-hidden"
+            className="relative rounded-3xl border-2 border-primary-500 bg-white shadow-card-elevated ring-1 ring-primary-500/20 overflow-visible"
           >
             {/* Animated top glow on border */}
             <motion.div
@@ -181,9 +181,31 @@ export function PreciosContent() {
                     transition={{ duration: 0.3, ease: EASE }}
                   >
                     <div className="flex items-baseline gap-2">
-                      <span className="text-6xl font-extrabold tracking-tight text-gray-900">
+                      <motion.span
+                        className="inline-block text-6xl font-extrabold tracking-tight text-gray-900"
+                        animate={{
+                          y: [0, -5, 0],
+                          textShadow: [
+                            "0 0 0 rgba(59, 130, 246, 0), 0 0 0 rgba(59, 130, 246, 0)",
+                            "0 0 28px rgba(59, 130, 246, 0.45), 0 0 52px rgba(59, 130, 246, 0.2)",
+                            "0 0 0 rgba(59, 130, 246, 0), 0 0 0 rgba(59, 130, 246, 0)",
+                          ],
+                        }}
+                        transition={{
+                          y: {
+                            duration: 3.2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          },
+                          textShadow: {
+                            duration: 1.85,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          },
+                        }}
+                      >
                         ${active.price}
-                      </span>
+                      </motion.span>
                       <span className="text-sm text-gray-500">{active.billingNote}</span>
                     </div>
 
