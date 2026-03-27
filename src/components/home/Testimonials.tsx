@@ -37,7 +37,6 @@ export function Testimonials() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          badge="Testimonios"
           title="Lo que dicen nuestros usuarios"
           description="Equipos de construcción ya gestionan sus obras con Bloqer."
           dark

@@ -86,14 +86,6 @@ export function PreciosContent() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.72, ease: EASE }}
           >
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wider text-blueprint-200 uppercase backdrop-blur-sm">
-              <motion.span
-                className="h-1.5 w-1.5 rounded-full bg-blueprint-400"
-                animate={{ opacity: [1, 0.25, 1] }}
-                transition={{ duration: 2.8, repeat: Infinity }}
-              />
-              Precios
-            </span>
             <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
               Sin vueltas.{" "}
               <span className="bg-gradient-to-r from-blueprint-400 to-primary-400 bg-clip-text text-transparent">
@@ -258,7 +250,7 @@ export function PreciosContent() {
 
               {/* Right: features */}
               <div className="p-10 pt-12">
-                <p className="mb-5 text-xs font-semibold tracking-wider text-gray-400 uppercase">
+                <p className="mb-5 text-sm font-semibold text-gray-700">
                   Todo lo que incluye
                 </p>
                 <StaggerContainer className="space-y-3" delay={0.3}>

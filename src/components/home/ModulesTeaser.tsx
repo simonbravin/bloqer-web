@@ -80,7 +80,6 @@ export function ModulesTeaser() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          badge="Módulos"
           title="Una plataforma, todos los procesos"
           description="Cada módulo resuelve un dolor real de la operación de obra. Usá solo lo que necesitás."
           dark

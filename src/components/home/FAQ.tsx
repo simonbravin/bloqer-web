@@ -82,7 +82,6 @@ export function FAQ() {
     <section className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          badge="FAQ"
           title="Preguntas frecuentes"
           description="Respuestas rápidas sobre Bloqer."
         />

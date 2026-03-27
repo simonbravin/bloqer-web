@@ -33,10 +33,7 @@ export function HowItWorks() {
   return (
     <section className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          badge="Cómo funciona"
-          title="En tres pasos empezás a controlar tu obra"
-        />
+        <SectionHeading title="En tres pasos empezás a controlar tu obra" />
 
         <div className="relative">
           {/* ── Animated connector line (desktop only) ── */}
@@ -100,18 +97,7 @@ export function HowItWorks() {
                     </motion.div>
                   </div>
 
-                  {/* Step number dot */}
-                  <motion.span
-                    className="mt-3 mb-2 block text-xs font-bold tracking-wider text-primary-500 uppercase"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.55 + i * 0.15, duration: 0.4 }}
-                  >
-                    Paso {step.number}
-                  </motion.span>
-
-                  <h3 className="text-xl font-bold text-gray-900">{step.title}</h3>
+                  <h3 className="mt-4 text-xl font-bold text-gray-900">{step.title}</h3>
                   <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-gray-500">
                     {step.description}
                   </p>

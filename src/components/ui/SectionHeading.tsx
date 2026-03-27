@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
 
 interface SectionHeadingProps {
-  badge?: string;
   title: string;
   description?: string;
   align?: "left" | "center";
@@ -10,7 +9,6 @@ interface SectionHeadingProps {
 }
 
 export function SectionHeading({
-  badge,
   title,
   description,
   align = "center",
@@ -25,21 +23,9 @@ export function SectionHeading({
         className
       )}
     >
-      {badge && (
-        <span
-          className={cn(
-            "mb-4 inline-block rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider",
-            dark
-              ? "bg-white/10 text-blueprint-200"
-              : "bg-primary-50 text-primary-600 ring-1 ring-primary-100"
-          )}
-        >
-          {badge}
-        </span>
-      )}
       <h2
         className={cn(
-          "mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-tight",
+          "text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-tight",
           dark ? "text-white" : "text-gray-900"
         )}
       >

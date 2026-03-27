@@ -223,14 +223,6 @@ export function ModulosContent() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.72, ease: EASE }}
           >
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wider text-blueprint-200 uppercase backdrop-blur-sm">
-              <motion.span
-                className="h-1.5 w-1.5 rounded-full bg-blueprint-400"
-                animate={{ opacity: [1, 0.25, 1] }}
-                transition={{ duration: 2.8, repeat: Infinity }}
-              />
-              Módulos
-            </span>
             <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
               Cada módulo resuelve un{" "}
               <span className="bg-gradient-to-r from-blueprint-400 to-primary-400 bg-clip-text text-transparent">
@@ -255,8 +247,8 @@ export function ModulosContent() {
             {/* Sticky sidebar */}
             <nav className="hidden lg:block">
               <div className="sticky top-20 space-y-1 rounded-2xl border border-gray-100 bg-gray-50/50 p-4 shadow-card">
-                <p className="mb-4 px-3 text-xs font-semibold tracking-[0.15em] text-gray-400 uppercase">
-                  Módulos
+                <p className="mb-4 px-3 text-sm font-semibold text-gray-700">
+                  En esta página
                 </p>
                 {MODULES.map((m) => (
                   <a

@@ -80,10 +80,6 @@ export function ProductoContent() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wider text-blueprint-200 uppercase backdrop-blur-sm">
-                <span className="h-1.5 w-1.5 rounded-full bg-blueprint-400" />
-                Producto
-              </span>
               <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
                 Una plataforma que conecta{" "}
                 <span className="bg-gradient-to-r from-blueprint-400 to-primary-400 bg-clip-text text-transparent">
@@ -137,7 +133,6 @@ export function ProductoContent() {
       <section className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="Flujo de trabajo"
             title="Todo conectado, de principio a fin"
             description="Cada módulo alimenta al siguiente. Así se ve el flujo típico de un proyecto en Bloqer."
           />
@@ -179,7 +174,6 @@ export function ProductoContent() {
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="Características"
             title="Diseñado para equipos de construcción reales"
             description="No es un ERP genérico adaptado — Bloqer está construido desde cero para el sector."
             dark
@@ -215,7 +209,6 @@ export function ProductoContent() {
             <div>
               <SectionHeading
                 align="left"
-                badge="Interfaz intuitiva"
                 title="Diseñado para que tu equipo lo adopte rápido"
                 description="Sin curvas de aprendizaje eternas. Bloqer tiene una interfaz limpia que cualquier profesional de construcción puede usar desde el primer día."
               />

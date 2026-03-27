@@ -59,10 +59,6 @@ export function NosotrosContent() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wider text-blueprint-200 uppercase backdrop-blur-sm">
-                <span className="h-1.5 w-1.5 rounded-full bg-blueprint-400" />
-                Nosotros
-              </span>
               <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
                 Hacemos que la construcción opere con{" "}
                 <span className="bg-gradient-to-r from-blueprint-400 to-primary-400 bg-clip-text text-transparent">
@@ -86,7 +82,6 @@ export function NosotrosContent() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl">
             <SectionHeading
-              badge="Nuestra misión"
               title="Digitalizar la operación de construcción en Latinoamérica"
               description="Creemos que cada proyecto de construcción merece ser gestionado con información clara, procesos conectados y trazabilidad completa — sin importar su tamaño."
             />
@@ -135,10 +130,7 @@ export function NosotrosContent() {
       {/* Values */}
       <section className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            badge="Nuestros valores"
-            title="Lo que nos guía"
-          />
+          <SectionHeading title="Lo que nos guía" />
 
           <div className="grid gap-8 md:grid-cols-3">
             {VALUES.map((v, i) => (

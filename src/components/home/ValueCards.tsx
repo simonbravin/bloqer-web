@@ -74,7 +74,6 @@ export function ValueCards() {
     <section className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          badge="¿Por qué Bloqer?"
           title="Todo lo que necesitás para controlar tus obras"
           description="Dejá de perder tiempo con planillas desconectadas. Bloqer centraliza toda la operación de tus proyectos."
         />
